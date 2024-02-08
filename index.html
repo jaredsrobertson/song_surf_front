@@ -71,7 +71,7 @@
         var searchTerm = $('#search-box').val();
 
         $.ajax({
-          url: 'http://localhost:5000/search',
+          url: 'https://song-surf.onrender.com/search',
           type: 'POST',
           contentType: 'application/json',
           data: JSON.stringify({ search_term: searchTerm }),
