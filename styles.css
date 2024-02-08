@@ -3,21 +3,6 @@ body {
   color: #3d5a80; /* Retained color scheme */
 }
 
-h2 {
-  font-size: 1.5rem; /* Adjusted for responsiveness */
-  color: #3d5a80; /* Retained color scheme */
-  font-weight: 600; /* Retained font weight */
-  margin-bottom: 0.5rem; /* Adjusted margin */
-}
-
-h4 {
-  font-size: 1.25rem; /* Adjusted for responsiveness */
-  line-height: 1.5; /* Aligned with Bootstrap's line-height for consistency */
-  color: #3d5a80; /* Retained color scheme */
-  font-weight: 400; /* Retained font weight */
-  margin-bottom: 0.5rem; /* Adjusted margin */
-}
-
 /* Since we're using Bootstrap's bg-light class, the .jumbotron class might be redundant. If you have additional styles unique to the jumbotron, consider renaming this class to avoid confusion with Bootstrap 3's jumbotron. */
 .bg-surf {
   background-image: url('surf.jpg'); /* Update path to your image */
