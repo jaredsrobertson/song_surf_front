@@ -1,0 +1,66 @@
+body {
+  font-family: 'Open Sans', sans-serif; /* Updated for consistency with Bootstrap 5 */
+  color: #3d5a80; /* Retained color scheme */
+}
+
+h2 {
+  font-size: 1.5rem; /* Adjusted for responsiveness */
+  color: #3d5a80; /* Retained color scheme */
+  font-weight: 600; /* Retained font weight */
+  margin-bottom: 0.5rem; /* Adjusted margin */
+}
+
+h4 {
+  font-size: 1.25rem; /* Adjusted for responsiveness */
+  line-height: 1.5; /* Aligned with Bootstrap's line-height for consistency */
+  color: #3d5a80; /* Retained color scheme */
+  font-weight: 400; /* Retained font weight */
+  margin-bottom: 0.5rem; /* Adjusted margin */
+}
+
+/* Since we're using Bootstrap's bg-light class, the .jumbotron class might be redundant. If you have additional styles unique to the jumbotron, consider renaming this class to avoid confusion with Bootstrap 3's jumbotron. */
+.bg-surf {
+  background-image: url('surf.jpg'); /* Update path to your image */
+  background-size: cover; /* Cover the entire page but maintain aspect ratio */
+  background-position: center; /* Center the background image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  color: #fff; /* Assuming you want white text on top of your image */
+  border-radius: 0.5rem; /* Rounded corners for the div */
+}
+
+.bg-ocean {
+  background: linear-gradient(to bottom, #003366 0%, #006699 100%);
+  color: #ffffff; /* Ensures text is readable on the dark background */
+  border-radius: 0.5rem; /* Rounded corners for the div */
+}
+
+#audio-player {
+  transform: scale(1.33); /* Adjust the scale factor as needed */
+  transform-origin: center; /* Ensures the scaling is centered */
+}
+
+/* The fancy class is used for the title; ensure it stands out */
+.fancy {
+  font-family: 'Caveat', cursive; /* Ensured usage of the Google font */
+  text-shadow: 2px 2px 5px #293241; /* Retained text shadow for stylistic preference */
+}
+
+
+
+/* For custom animations or specific layout adjustments not covered by Bootstrap */
+.slide {
+  animation-name: slide;
+  animation-duration: 1s;
+  visibility: visible;
+}
+
+@keyframes slide {
+  0% {
+    opacity: 0;
+    transform: translateY(70%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0%);
+  }
+}
