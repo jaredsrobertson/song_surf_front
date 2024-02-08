@@ -20,7 +20,7 @@ body {
 }
 
 #audio-player {
-  transform: scale(1.33); /* Adjust the scale factor as needed */
+  transform: scale(1); /* Adjust the scale factor as needed */
   transform-origin: center; /* Ensures the scaling is centered */
 }
 
