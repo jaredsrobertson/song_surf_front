@@ -2,95 +2,167 @@
 <html lang="en">
 
 <head>
-  <title>song_surf</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta property="og:image" content="surf.jpg" name="image">
+  <title>song_surf</title>
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Caveat|Open+Sans" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  <link href="styles.css" rel="stylesheet">
+  <style>
+
+  </style>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
 <body>
+  <div class="container-custom px-3">
+    <nav class="navbar navbar-expand-lg navbar-dark py-2">
+      <div class="navbar-brand d-flex flex-column align-items-start">
+        <div class="d-flex align-items-center">
+          <img src="logo.png" alt="Logo" id="navbar-logo">
+          <span class="logo-text ms-1">song_surf</span>
+        </div>
+      </div>
+      <div class="ms-auto nav-icons">
+        <a href="https://github.com/yourGitHubUsername" class="nav-icon"><i class="fab fa-github"></i></a>
+        <a href="#" class="nav-icon"><i class="fas fa-info-circle"></i></a>
+        <a href="#" class="nav-icon"><i class="fa fa-user-circle"></i></a>
+      </div>
+    </nav>
+    <div class="d-flex justify-content-center">
+      <form class="input-group mb-3" id="search-form">
+        <input type="text" class="form-control" placeholder="Search for a song..." id="search-box"
+          aria-label="Search for a song">
+        <button class="btn btn-outline-secondary" type="submit"><i class="fas fa-search"></i></button>
+      </form>
+    </div>
 
-  <div class="container-fluid mt-2">
-    <div class="row justify-content-center">
-      <div>
-        <div class="bg-ocean pt-3 rounded-lg text-center">
-          <h1 class="display-1 fancy slide p-4">song_surf</h1>
-          <form id="search-form" class="d-flex justify-content-center">
-            <div class="row">
-              <div class="col-8 input-group">
-                <input type="search" class="form-control" id="search-box" placeholder="Enter song title and artist"
-                  required>
-                <button class="btn btn-dark" type="submit">SURF</button>
+    <!-- Adjusted row for the first content div to take full width on desktop -->
+    <div class="row">
+      <div class="col-12 mb-3">
+        <div class="translucent-div pt-3 px-3" id="artist-info-div">
+          <!-- Song Information -->
+          <div class="song-info">
+            <h4 id="track-name">Track Name</h4>
+            <h6 id="artist-name">Artist Name</h6>
+            <h6 id="album-name">Album</h6>
+            <h6 id="release-year">Year</h6>
+          </div>
+          <audio id="audio-player" controls style="width: 100%; display: none;">
+            Your browser does not support the audio element.
+          </audio>
+
+          <div class="media-controls mt-4">
+            <!-- Seek Bar -->
+            <div class="d-flex align-items-center pb-1">
+              <input type="range" id="seek-bar" class="form-range flex-grow-1" min="0" value="0">
+            </div>
+            <!-- Play Button and Volume Controls -->
+            <div class="d-flex justify-content-between align-items-center w-100">
+              <button id="play-pause-btn" class="btn btn-transparent">
+                <i class="fa fa-play-circle"></i> <!-- Play icon -->
+              </button>
+              <div class="d-flex align-items-center">
+                <i class="fas fa-volume-up" id="volume-icon" style="cursor: pointer;"></i>
+                <input type="range" id="volume-bar" class="form-range ms-3" min="0" max="100" value="25"
+                  style="width: 9em;">
               </div>
-          </form>
-          <!-- Media controls -->
-          <div class="p-4">
-            <audio id="audio-player" controls style="width: 75%; opacity: 0.5;" disabled></audio>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  </div>
 
-  <div class="container mt-5">
-    <div class="row text-center g-3">
-      <!-- Each div will take full width on xs screens and 4/12 columns on md screens and up -->
-      <div class="col-12 col-md-4">
-        <div class="p-3 bg-light rounded">
-          <h2>Title 1</h2>
-          <h4>Sub</h4>
-          <p>Text</p>
-        </div>
+    <!-- Additional rows for other content -->
+    <!-- New row for the second and third content divs to align side by side on desktop -->
+    <div class="row">
+      <div class="col-12 col-md-6 mb-3">
+        <div class="translucent-div p-3">Placeholder Content 2</div>
       </div>
-      <div class="col-12 col-md-4">
-        <div class="p-3 bg-light rounded">
-          <h2>Title 2</h2>
-          <h4>Sub</h4>
-          <p>Text</p>
-        </div>
-      </div>
-      <div class="col-12 col-md-4">
-        <div class="p-3 bg-light rounded">
-          <h2>Title 3</h2>
-          <h4>Sub</h4>
-          <p>Text</p>
-        </div>
+      <div class="col-12 col-md-6 mb-3">
+        <div class="translucent-div p-3">Placeholder Content 3</div>
       </div>
     </div>
   </div>
-  
-
-  <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+  <!-- Bootstrap JS Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   <script>
     $(document).ready(function () {
+      var audioPlayer = $('#audio-player')[0]; // Reference to the native audio element
+
+      $('#play-pause-btn').on('click', function () {
+        if (audioPlayer.paused) {
+          audioPlayer.play();
+          $(this).html('<i class="fa fa-pause-circle"></i>');
+        } else {
+          audioPlayer.pause();
+          $(this).html('<i class="fa fa-play-circle"></i>');
+        }
+      });
+
       $('#search-form').submit(function (e) {
         e.preventDefault();
         var searchTerm = $('#search-box').val();
-
         $.ajax({
-          url: 'https://song-surf.onrender.com/search',
+          url: 'http://127.0.0.1:5000/search',
           type: 'POST',
           contentType: 'application/json',
           data: JSON.stringify({ search_term: searchTerm }),
           success: function (response) {
-            var audioPlayer = $('#audio-player');
-            audioPlayer.attr('src', response.audio_url);
-            audioPlayer.css('opacity', '1'); // Adjust opacity to fully visible
-            audioPlayer.prop('disabled', false); // Enable the controls
-            audioPlayer[0].play(); // Play the audio
+            // Set the audio source and play
+            $(audioPlayer).attr('src', response.audio_url).css('opacity', '1').prop('disabled', false);
+            audioPlayer.play(); // This will also change the play/pause button to 'pause'
+
+            // Correctly update background image using album art URL
+            setBackgroundImageAndAdjustHeight(response.album_art_url); // Assuming response.album_art_url is the correct path
+
+            $('#track-name').text(response.track_name);
+            $('#artist-name').text(response.artist_name);
+            $('#album-name').text(response.album_name);
+            $('#release-year').text(response.release_year);
+            $('#play-pause-btn').html('<i class="fa fa-pause-circle"></i>');
           },
           error: function (xhr, status, error) {
             console.error("Error during search:", error);
           }
         });
       });
+
+      function setBackgroundImageAndAdjustHeight(imageUrl) {
+        const img = new Image();
+        img.onload = function () {
+          // Once the image is loaded, adjust the music div height and reveal the gradient overlay
+          $('#artist-info-div').css({
+            'background-image': `url(${imageUrl})`,
+            'height': 'auto' // Or set to the div's width for a square aspect ratio
+          }).find('::after').css('display', 'block'); // This might not directly work as it's a pseudo-element. See the alternative approach below.
+
+          // If using a class to control the visibility, add the class here
+          $('#artist-info-div').addClass('gradient-overlay-visible');
+
+          adjustMusicDivHeight(); // Ensure this function adjusts the div height correctly
+        };
+        img.src = imageUrl;
+      }
+
+      // Function to adjust the music div height
+      function adjustMusicDivHeight() {
+        const musicDivWidth = $('#artist-info-div').width();
+        $('#artist-info-div').css('height', musicDivWidth + 'px');
+      }
+
+      // Adjust height on window resize to maintain aspect ratio
+      $(window).resize(adjustMusicDivHeight);
+
+      // Initial adjustment in case the window size changes before image loads
+      adjustMusicDivHeight();
     });
+
   </script>
 </body>
 

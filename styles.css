@@ -1,51 +1,136 @@
 body {
-  font-family: 'Open Sans', sans-serif; /* Updated for consistency with Bootstrap 5 */
-  color: #3d5a80; /* Retained color scheme */
+  font-family: 'Roboto', sans-serif;
+  background-color: #080808;
+  color: #fff;
+  min-height: 100vh;
 }
 
-/* Since we're using Bootstrap's bg-light class, the .jumbotron class might be redundant. If you have additional styles unique to the jumbotron, consider renaming this class to avoid confusion with Bootstrap 3's jumbotron. */
-.bg-surf {
-  background-image: url('surf.jpg'); /* Update path to your image */
-  background-size: cover; /* Cover the entire page but maintain aspect ratio */
+.container-custom {
+  max-width: 800px;
+  margin: auto;
+  width: 100%;
+}
+
+.translucent-div {
+  background-color: rgba(255, 255, 255, 0.01);
+  border-radius: 5px;
+  position: relative;
+  background-size: cover; /* Cover the entire div */
   background-position: center; /* Center the background image */
   background-repeat: no-repeat; /* Do not repeat the image */
-  color: #fff; /* Assuming you want white text on top of your image */
-  border-radius: 0.5rem; /* Rounded corners for the div */
+  overflow: hidden; /* Ensures that the div does not expand beyond the max height */
 }
 
-.bg-ocean {
-  background: linear-gradient(to bottom, #003366 0%, #006699 100%);
-  color: #ffffff; /* Ensures text is readable on the dark background */
-  border-radius: 0.5rem; /* Rounded corners for the div */
+#artist-info-div {
+  position: relative;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 }
 
-#audio-player {
-  transform: scale(1); /* Adjust the scale factor as needed */
-  transform-origin: center; /* Ensures the scaling is centered */
+#artist-info-div::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%; /* This ensures the gradient covers the bottom half of the div */
+  background: linear-gradient(to top, #080808 0%, rgba(8, 8, 8, 0.95) 20%, rgba(8, 8, 8, 0.5) 50%, transparent 100%);
+  z-index: 1; /* Ensure it's below the content but above the background image */
+  display: none; /* Hide the overlay initially */
 }
 
-/* The fancy class is used for the title; ensure it stands out */
-.fancy {
-  font-family: 'Caveat', cursive; /* Ensured usage of the Google font */
-  text-shadow: 2px 2px 5px #293241; /* Retained text shadow for stylistic preference */
+.song-info {
+  z-index: 2; /* Ensure these elements are visually above the gradient overlay */
+  position: relative;
+}
+
+.media-controls {
+  z-index: 2;
+  position: relative;
+}
+
+#artist-info-div.gradient-overlay-visible::after {
+  display: block; /* Only show the overlay when this class is added */
+}
+
+.nav-icon {
+  margin: 0 0.2em;
+  color: #fff;
+  font-size: 1.5rem;
+  background: none;
+  border: none; 
+}
+
+#navbar-logo {
+  height: 3rem;
+  /* Sets the logo's height, which controls its size */
+  width: auto;
+  /* Keeps the logo's aspect ratio intact */
+}
+
+.logo-text {
+  font-size: 2.5rem;
 }
 
 
-
-/* For custom animations or specific layout adjustments not covered by Bootstrap */
-.slide {
-  animation-name: slide;
-  animation-duration: 1s;
-  visibility: visible;
+#play-pause-btn {
+  font-size: 3rem;
+  color: #fff;
+  border: none;
 }
 
-@keyframes slide {
-  0% {
-    opacity: 0;
-    transform: translateY(70%);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0%);
-  }
+#play-pause-btn i {
+  transform: translateX(-0.8rem); /* Adjust this value as needed */
+}
+
+#seek-bar {
+  flex-grow: 1;
+  /* Allows the seek bar to fill the rest of the flex container */
+}
+
+/* General styling for range inputs (seek and volume bars) */
+input[type="range"] {
+  width: 100%;
+  height: 8px; /* Thickness of the slider */
+  cursor: pointer; /* Cursor changes to pointer when hovering over the slider */
+}
+
+/* Styling for the slider thumb */
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px; /* Width of the thumb */
+  height: 8px; /* Height (thickness) of the thumb, making it larger than the slider track */
+  background: #fff; /* Background color of the thumb */
+  cursor: pointer; /* Ensures cursor changes to pointer when hovering over the thumb */
+  border-radius: 15%; /* Makes the thumb circular */
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 20px; /* Width of the thumb */
+  height: 8px; /* Height of the thumb */
+  background: #fff; /* Background color of the thumb */
+  cursor: pointer;
+  border-radius: 15%;
+}
+
+/* Styling for the slider track */
+input[type="range"]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 4px;
+  cursor: pointer;
+  animation: 0.2s;
+  background: rgba(255, 255, 255, 0.01);
+}
+
+input[type="range"]::-moz-range-track {
+  width: 100%;
+  height: 4px;
+  cursor: pointer;
+  animation: 0.2s;
+  background: #080808;
 }
