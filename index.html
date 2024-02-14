@@ -13,23 +13,20 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
   <link href="styles.css" rel="stylesheet">
-  <style>
-
-  </style>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
 <body>
-  <div class="container-custom px-3">
-    <nav class="navbar navbar-expand-lg navbar-dark py-2">
+  <div class="px-3" id="container-custom">
+    <nav class="navbar navbar-expand-lg navbar-dark">
       <div class="navbar-brand d-flex flex-column align-items-start">
         <div class="d-flex align-items-center">
-          <img src="logo.png" alt="Logo" id="navbar-logo">
-          <span class="logo-text ms-1">song_surf</span>
+          <img src="logo.png" alt="Logo" id="nav-logo">
+          <span class="ms-1" id="nav-text">song_surf</span>
         </div>
       </div>
-      <div class="ms-auto nav-icons">
-        <a href="https://github.com/yourGitHubUsername" class="nav-icon"><i class="fab fa-github"></i></a>
+      <div class="ms-auto">
+        <a href="https://github.com/jaredsrobertson/song_surf_front" class="nav-icon"><i class="fab fa-github"></i></a>
         <a href="#" class="nav-icon"><i class="fas fa-info-circle"></i></a>
         <a href="#" class="nav-icon"><i class="fa fa-user-circle"></i></a>
       </div>
@@ -37,63 +34,56 @@
     <div class="d-flex justify-content-center">
       <form class="input-group mb-3" id="search-form">
         <input type="text" class="form-control" placeholder="Search for a song..." id="search-box"
-          aria-label="Search for a song">
+          aria-label="Search for a song" autocomplete="off">
         <button class="btn btn-outline-secondary" type="submit"><i class="fas fa-search"></i></button>
       </form>
     </div>
-
-    <!-- Adjusted row for the first content div to take full width on desktop -->
     <div class="row">
-      <div class="col-12 mb-3">
-        <div class="translucent-div pt-3 px-3" id="artist-info-div">
-          <!-- Song Information -->
-          <div class="song-info">
+      <div class="col-12">
+        <div class="translucent-div px-3" id="artist-info-div">
+          <div id="gradient-overlay"></div>
+          <div class="ps-1" id="song-info">
             <h4 id="track-name">Track Name</h4>
             <h6 id="artist-name">Artist Name</h6>
             <h6 id="album-name">Album</h6>
             <h6 id="release-year">Year</h6>
           </div>
-          <audio id="audio-player" controls style="width: 100%; display: none;">
+
+          <audio id="audio-player" controls>
             Your browser does not support the audio element.
           </audio>
 
-          <div class="media-controls mt-4">
-            <!-- Seek Bar -->
-            <div class="d-flex align-items-center pb-1">
-              <input type="range" id="seek-bar" class="form-range flex-grow-1" min="0" value="0">
-            </div>
-            <!-- Play Button and Volume Controls -->
-            <div class="d-flex justify-content-between align-items-center w-100">
+          <div class="mt-2" id="media-controls">
+            <div class="play-button-container">
               <button id="play-pause-btn" class="btn btn-transparent">
-                <i class="fa fa-play-circle"></i> <!-- Play icon -->
+                <i class="fas fa-play-circle"></i>
               </button>
-              <div class="d-flex align-items-center">
-                <i class="fas fa-volume-up" id="volume-icon" style="cursor: pointer;"></i>
-                <input type="range" id="volume-bar" class="form-range ms-3" min="0" max="100" value="25"
-                  style="width: 9em;">
+            </div>
+            <div id="progress-time-container">
+              <div id="progress-container">
+                <div id="seek-bar">
+                </div>
+              </div>
+              <div id="time-controls">
+                <span id="current-time">0:00</span>
+                <span id="total-duration">0:00</span>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-
-    <!-- Additional rows for other content -->
-    <!-- New row for the second and third content divs to align side by side on desktop -->
-    <div class="row">
-      <div class="col-12 col-md-6 mb-3">
-        <div class="translucent-div p-3">Placeholder Content 2</div>
-      </div>
-      <div class="col-12 col-md-6 mb-3">
-        <div class="translucent-div p-3">Placeholder Content 3</div>
-      </div>
-    </div>
   </div>
-  <!-- Bootstrap JS Bundle with Popper -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   <script>
     $(document).ready(function () {
-      var audioPlayer = $('#audio-player')[0]; // Reference to the native audio element
+      var audioPlayer = $('#audio-player')[0];
+      var seekBar = $('#seek-bar');
+      var progressContainer = $('#progress-container');
+      var currentTimeElement = $('#current-time');
+      var totalDurationElement = $('#total-duration');
+      // Clear the search bar on page load/refresh
+      $('#search-box').val('');
 
       $('#play-pause-btn').on('click', function () {
         if (audioPlayer.paused) {
@@ -105,6 +95,22 @@
         }
       });
 
+      $(audioPlayer).on('timeupdate', function () {
+        var progressPercent = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+        seekBar.css('width', progressPercent + '%');
+        // Update current time
+        currentTimeElement.text(formatTime(audioPlayer.currentTime));
+      });
+
+      // Set progress on click
+      progressContainer.on('click', function (e) {
+        var clickX = e.offsetX;
+        var width = $(this).width();
+        var duration = audioPlayer.duration;
+        audioPlayer.currentTime = (clickX / width) * duration;
+      });
+
+      // Load song details and play
       $('#search-form').submit(function (e) {
         e.preventDefault();
         var searchTerm = $('#search-box').val();
@@ -114,18 +120,18 @@
           contentType: 'application/json',
           data: JSON.stringify({ search_term: searchTerm }),
           success: function (response) {
-            // Set the audio source and play
             $(audioPlayer).attr('src', response.audio_url).css('opacity', '1').prop('disabled', false);
-            audioPlayer.play(); // This will also change the play/pause button to 'pause'
-
-            // Correctly update background image using album art URL
-            setBackgroundImageAndAdjustHeight(response.album_art_url); // Assuming response.album_art_url is the correct path
-
+            audioPlayer.play();
             $('#track-name').text(response.track_name);
             $('#artist-name').text(response.artist_name);
             $('#album-name').text(response.album_name);
             $('#release-year').text(response.release_year);
             $('#play-pause-btn').html('<i class="fa fa-pause-circle"></i>');
+            setBackgroundImageAndAdjustHeight(response.album_art_url);
+            // Update total duration
+            audioPlayer.onloadedmetadata = function () {
+              totalDurationElement.text(formatTime(audioPlayer.duration));
+            };
           },
           error: function (xhr, status, error) {
             console.error("Error during search:", error);
@@ -136,31 +142,34 @@
       function setBackgroundImageAndAdjustHeight(imageUrl) {
         const img = new Image();
         img.onload = function () {
-          // Once the image is loaded, adjust the music div height and reveal the gradient overlay
-          $('#artist-info-div').css({
-            'background-image': `url(${imageUrl})`,
-            'height': 'auto' // Or set to the div's width for a square aspect ratio
-          }).find('::after').css('display', 'block'); // This might not directly work as it's a pseudo-element. See the alternative approach below.
-
-          // If using a class to control the visibility, add the class here
-          $('#artist-info-div').addClass('gradient-overlay-visible');
-
-          adjustMusicDivHeight(); // Ensure this function adjusts the div height correctly
+          $('#artist-info-div').css('background-image', `url(${imageUrl})`);
+          // Toggle visibility of the gradient overlay
+          $('#artist-info-div').addClass('gradient-visible');
+          adjustMusicDivHeight();
         };
         img.src = imageUrl;
       }
 
-      // Function to adjust the music div height
       function adjustMusicDivHeight() {
         const musicDivWidth = $('#artist-info-div').width();
         $('#artist-info-div').css('height', musicDivWidth + 'px');
       }
 
-      // Adjust height on window resize to maintain aspect ratio
+      // Call the function immediately to set the initial height.
+      adjustMusicDivHeight();
+
+      // Trigger the resize event after the page is fully loaded to ensure the height is adjusted accordingly.
+      $(window).on('load', adjustMusicDivHeight);
+
+      // Ensure height is adjusted on window resize as well.
       $(window).resize(adjustMusicDivHeight);
 
-      // Initial adjustment in case the window size changes before image loads
-      adjustMusicDivHeight();
+      // Format time from seconds to M:SS
+      function formatTime(seconds) {
+        let minutes = Math.floor(seconds / 60);
+        let secondsPart = Math.floor(seconds % 60);
+        return minutes + ":" + (secondsPart < 10 ? "0" + secondsPart : secondsPart);
+      }
     });
 
   </script>
